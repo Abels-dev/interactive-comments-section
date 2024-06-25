@@ -1,26 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
-
-  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
-  
-  <title>Frontend Mentor | Interactive comments section</title>
-
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  <style>
-    .attribution { font-size: 11px; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
-  </style>
-</head>
-<body>
-
-  <!-- Pull dynamic content from the data.json file -->
-  
-  <div class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
-  </div>
-</body>
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link
+         rel="icon"
+         type="image/png"
+         sizes="32x32"
+         href="./images/favicon-32x32.png" />
+      <title>Frontend Mentor | Interactive comments section</title>
+      <link rel="stylesheet" href="style.css" />
+      <script src="script.js" defer></script>
+   </head>
+   <body>
+      <main>
+         <section class="comments" id="commentHolder">
+            <article id="first">
+               <div class="container">
+                  <div class="voting">
+                     <button class="plus"></button>
+                     <p class="voteNo"></p>
+                     <button class="minus"></button>
+                  </div>
+                  <div class="commentInfo">
+                     <section class="commentHeader">
+                        <div class="commentDetails">
+                           <figure>
+                              <img src="" alt="" />
+                           </figure>
+                           <p class="userName"></p>
+                           <p class="time"></p>
+                        </div>
+                        <button class="reply">
+                           <img src="images/icon-reply.svg" alt="" />
+                           <span>Reply</span>
+                        </button>
+                     </section>
+                     <p class="comment"></p>
+                  </div>
+               </div>
+            </article>
+            <article id="second">
+               <div class="container">
+                  <div class="voting">
+                     <button class="plus"></button>
+                     <p class="voteNo"></p>
+                     <button class="minus"></button>
+                  </div>
+                  <div class="commentInfo">
+                     <section class="commentHeader">
+                        <div class="commentDetails">
+                           <figure>
+                              <img src="" alt="" />
+                           </figure>
+                           <p class="userName"></p>
+                           <p class="time"></p>
+                        </div>
+                        <button class="reply">
+                           <img src="images/icon-reply.svg" alt="" />
+                           <span>Reply</span>
+                        </button>
+                     </section>
+                     <p class="comment"></p>
+                  </div>
+               </div>
+               <div class="container">
+                  <div class="voting">
+                     <button class="plus"></button>
+                     <p class="voteNo"></p>
+                     <button class="minus"></button>
+                  </div>
+                  <div class="commentInfo">
+                     <section class="commentHeader">
+                        <div class="commentDetails">
+                           <figure>
+                              <img src="" alt="" />
+                           </figure>
+                           <p class="userName"></p>
+                           <p class="time"></p>
+                        </div>
+                        <button class="reply">
+                           <img src="images/icon-reply.svg" alt="" />
+                           <span>Reply</span>
+                        </button>
+                     </section>
+                     <p class="comment"></p>
+                  </div>
+               </div>
+               <div class="container">
+                  <div class="voting">
+                     <button class="plus"></button>
+                     <p class="voteNo"></p>
+                     <button class="minus"></button>
+                  </div>
+                  <div class="commentInfo">
+                     <section class="commentHeader">
+                        <div class="commentDetails">
+                           <figure>
+                              <img src="" alt="" />
+                           </figure>
+                           <p class="userName"></p>
+                           <p class="time"></p>
+                        </div>
+                        <div class="modify">
+                           <button class="delete">
+                              <img src="images/icon-delete.svg" alt="" />
+                              <span>Delete</span>
+                           </button>
+                           <button class="edit">
+                              <img src="images/icon-edit.svg" alt="" />
+                              <span>Edit</span>
+                           </button>
+                        </div>
+                     </section>
+                     <p class="comment"></p>
+                  </div>
+               </div>
+            </article>
+         </section>
+      </main>
+   </body>
 </html>
