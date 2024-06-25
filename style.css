@@ -1,0 +1,107 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+}
+:root {
+   /* ## Colors */
+   --Moderateblue: hsl(238, 40%, 52%);
+   --SoftRed: hsl(358, 79%, 66%);
+   --Lightgrayishblue: hsl(239, 57%, 85%);
+   --Palered: hsl(357, 100%, 86%);
+   --Darkblue: hsl(212, 24%, 26%);
+   --GrayishBlue: hsl(211, 10%, 45%);
+   --Lightgray: hsl(223, 19%, 93%);
+   --Verylightgray: hsl(228, 33%, 97%);
+   --White: hsl(0, 0%, 100%);
+}
+body {
+   background-color: var(--Verylightgray);
+   font-size: 16px;
+   font-family: "Rubik", sans-serif;
+}
+.comments {
+   width: 100%;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   gap: 20px;
+   padding: 20px;
+   margin-top: 40px;
+}
+.container {
+   max-width: 700px;
+   background-color: var(--White);
+   display: flex;
+   gap: 30px;
+   padding: 20px;
+   border-radius: 10px;
+}
+.commentHeader {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+.commentDetails {
+   display: flex;
+   align-items: center;
+   gap: 20px;
+}
+.commentDetails img {
+   width: 40px;
+}
+article {
+   display: flex;
+   flex-direction: column;
+   gap: 20px;
+}
+.voting {
+   width: 120px;
+   height: 110px;
+   background-color: var(--Verylightgray);
+   border-radius: 15px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: space-around;
+}
+.voting button {
+   border: 0;
+   outline: 0;
+   background-color: transparent;
+}
+.voting p,
+.repliedUser {
+   color: var(--Moderateblue);
+   font-weight: 700;
+}
+.comment,
+.time {
+   color: var(--GrayishBlue);
+}
+.comment {
+   margin-top: 15px;
+   line-height: 1.5;
+}
+.reply,
+.edit,
+.delete {
+   border: 0;
+   outline: 0;
+   background: transparent;
+   display: flex;
+   gap: 10px;
+   font-size: 16px;
+   color: var(--Moderateblue);
+   font-weight: 700;
+   align-items: center;
+}
+.modify {
+   display: flex;
+   gap: 30px;
+}
+.replied {
+   width: 600px;
+   align-self: flex-end;
+}

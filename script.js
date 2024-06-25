@@ -31,15 +31,13 @@ const handlingData = async () => {
             postedTime[i].textContent =
                givenData.comments[1].replies[i - 2].createdAt;
             if (i == 2)
-               postedComment[i].textContent =
-                  "@" +
-                  givenData.comments[1].user.username +
+               postedComment[i].innerHTML =
+                  `<span class="repliedUser">@${givenData.comments[1].user.username}</span>` +
                   " " +
                   givenData.comments[1].replies[i - 2].content;
             else
-               postedComment[i].textContent =
-                  "@" +
-                  givenData.comments[1].replies[0].user.username +
+               postedComment[i].innerHTML =
+                   `<span class="repliedUser">@${givenData.comments[1].replies[0].user.username}</span>`+
                   " " +
                   givenData.comments[1].replies[i - 2].content;
          }
