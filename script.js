@@ -4,7 +4,10 @@ const userName = document.querySelectorAll(".userName");
 const postedTime = document.querySelectorAll(".time");
 const reply = document.querySelectorAll(".reply");
 const postedComment = document.querySelectorAll(".comment");
-
+const deleteBtn = document.querySelector(".delete");
+const deleteConfirmBox = document.getElementById("deleteBox");
+const confirmDelete = document.getElementById("yes");
+const cancelDelete = document.getElementById("no");
 const fetchingJson = async () => {
    try {
       const response = await fetch("data.json");
@@ -37,7 +40,7 @@ const handlingData = async () => {
                   givenData.comments[1].replies[i - 2].content;
             else
                postedComment[i].innerHTML =
-                   `<span class="repliedUser">@${givenData.comments[1].replies[0].user.username}</span>`+
+                  `<span class="repliedUser">@${givenData.comments[1].replies[0].user.username}</span>` +
                   " " +
                   givenData.comments[1].replies[i - 2].content;
          }
@@ -52,3 +55,11 @@ const handlingData = async () => {
    }
 };
 handlingData();
+deleteBtn.addEventListener("click", (e) => {
+   deleteConfirmBox.style.display = "block";
+   cancelDelete.onclick = () => (deleteConfirmBox.style.display = "none");
+   confirmDelete.onclick = () => {
+      e.target.closest(".container").remove();
+      deleteConfirmBox.style.display = "none";
+   };
+});
