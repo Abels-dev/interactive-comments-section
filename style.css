@@ -20,6 +20,20 @@ body {
    background-color: var(--Verylightgray);
    font-size: 16px;
    font-family: "Rubik", sans-serif;
+   display: flex;
+   height: 100vh;
+   flex-direction: column;
+   align-items: center;
+   position: relative;
+}
+main {
+   width: 100%;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+button {
+   font: inherit;
 }
 .comments {
    width: 100%;
@@ -28,13 +42,14 @@ body {
    align-items: center;
    gap: 20px;
    padding: 20px;
-   margin-top: 40px;
+   margin-top: 30px;
 }
-.container {
-   max-width: 700px;
+.container,
+.addComment {
+   width: 700px;
    background-color: var(--White);
    display: flex;
-   gap: 30px;
+   gap: 20px;
    padding: 20px;
    border-radius: 10px;
 }
@@ -48,7 +63,8 @@ body {
    align-items: center;
    gap: 20px;
 }
-.commentDetails img {
+.commentDetails img,
+.addComment img {
    width: 40px;
 }
 article {
@@ -57,10 +73,10 @@ article {
    gap: 20px;
 }
 .voting {
-   width: 120px;
+   width: 110px;
    height: 110px;
    background-color: var(--Verylightgray);
-   border-radius: 15px;
+   border-radius: 10px;
    display: flex;
    flex-direction: column;
    align-items: center;
@@ -81,7 +97,7 @@ article {
    color: var(--GrayishBlue);
 }
 .comment {
-   margin-top: 15px;
+   margin-top: 10px;
    line-height: 1.5;
 }
 .reply,
@@ -97,6 +113,18 @@ article {
    font-weight: 700;
    align-items: center;
 }
+.youText{
+   background-color: var(--Moderateblue);
+   color: var(--White);
+   display: inline-block;
+   margin-left: 5px;
+   font-size: 13px;
+   padding-left: 3px;
+   width: 30px;
+   font-weight: 500;
+   height: 17px;
+  
+}
 .modify {
    display: flex;
    gap: 30px;
@@ -104,4 +132,76 @@ article {
 .replied {
    width: 600px;
    align-self: flex-end;
+}
+.addComment {
+   align-items: flex-start;
+   justify-content: center;
+   margin-bottom: 30px;
+}
+textarea {
+   border-color: var(--Lightgray);
+   resize: none;
+   border-radius: 5px;
+   padding: 10px;
+   padding-left: 20px;
+   outline: 0;
+   font: inherit;
+   font-weight: 500;
+   color: var(--Darkblue);
+}
+textarea:focus {
+   border: 2px solid var(--GrayishBlue);
+}
+.send {
+   background-color: var(--Moderateblue);
+   border: 0;
+   padding: 0.7rem;
+   border-radius: 8px;
+   width: 90px;
+   color: var(--White);
+   font-weight: 500;
+   font-size: 14px;
+}
+.deleteBox {
+   width: 350px;
+   height: 220px;
+   background-color: var(--White);
+   border-radius: 10px;
+   margin-bottom: 30px;
+   padding: 20px;
+   position: absolute;
+   z-index: 99;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   display: none;
+}
+.deleteBox h1 {
+   color: var(--Darkblue);
+   font-size: 1.2rem;
+   margin-bottom: 15px;
+}
+.deleteBox p {
+   color: var(--GrayishBlue);
+   line-height: 1.5;
+   margin-bottom: 15px;
+   font-size: 15px;
+}
+.confirmationBtns {
+   display: flex;
+   gap: 15px;
+}
+.deleteBox button {
+   width: 150px;
+   padding: 0.8rem;
+   border-radius: 8px;
+   color: var(--White);
+   border: 0;
+   font-weight: 500;
+}
+.yes {
+   background-color: var(--SoftRed);
+}
+.no {
+   background-color: var(--GrayishBlue);
 }

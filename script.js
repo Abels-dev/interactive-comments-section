@@ -44,7 +44,7 @@ const handlingData = async () => {
          if (i == 3) {
             userName[i].innerHTML =
                givenData.comments[1].replies[i - 2].user.username +
-               "<span> You</span>";
+               `<span class="youText"> you</span>`;
          }
       }
    } catch (error) {
