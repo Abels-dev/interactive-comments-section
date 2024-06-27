@@ -79,7 +79,7 @@ article {
    gap: 20px;
 }
 .voting {
-   width: 110px;
+   width: 60px;
    height: 110px;
    background-color: var(--Verylightgray);
    border-radius: 10px;
@@ -158,7 +158,7 @@ textarea {
 textarea:focus {
    border: 2px solid var(--GrayishBlue);
 }
-.send {
+.send ,.replyBtn{
    background-color: var(--Moderateblue);
    border: 0;
    padding: 0.7rem;

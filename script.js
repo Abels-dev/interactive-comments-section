@@ -11,6 +11,23 @@ const cancelDelete = document.getElementById("no");
 const editMsg = document.querySelector(".edit");
 const sendMsg = document.getElementById("send");
 const newComment = document.getElementById("commentField");
+
+const date = new Date();
+const monthNames = [
+   "January",
+   "February",
+   "March",
+   "April",
+   "May",
+   "June",
+   "July",
+   "August",
+   "September",
+   "October",
+   "November",
+   "December",
+];
+let currentDate = monthNames[date.getMonth()] + " " + date.getDate();
 const fetchingJson = async () => {
    try {
       const response = await fetch("data.json");
@@ -83,10 +100,7 @@ commentHolder.addEventListener("click", (e) => {
          deleteConfirmBox.style.display = "none";
          disableButton(editBn, deleteBn, false, "1");
       };
-   }
-});
-commentHolder.addEventListener("click", (e) => {
-   if (
+   } else if (
       e.target.classList.contains("edit") ||
       e.target.classList.contains("editImg") ||
       e.target.classList.contains("editText")
@@ -115,26 +129,90 @@ commentHolder.addEventListener("click", (e) => {
          editMsg.style.opacity = 1;
          deleteBtn.style.opacity = 1;
       };
+   } else if (
+      e.target.classList.contains("reply") ||
+      e.target.classList.contains("replyImg") ||
+      e.target.classList.contains("replyText")
+   ) {
+      const commentArticle = e.target.closest("article");
+      let username = commentArticle.querySelector(".userName").textContent;
+      if (commentArticle.classList.contains("nestedReply")) {
+         commentArticle.innerHTML += `<section class="addComment replied">
+         <figure>
+            <img src="images/avatars/image-juliusomo.png" alt="" />
+         </figure>
+         <textarea
+            name=""
+            id="commentField"
+            rows="4"
+            cols="55"
+            ></textarea>
+         <button class="replyBtn">REPLY</button>
+      </section>`;
+      } else {
+         commentArticle.innerHTML += `<section class="addComment">
+            <figure>
+               <img src="images/avatars/image-juliusomo.png" alt="" />
+            </figure>
+            <textarea
+               name=""
+               id="commentField"
+               rows="4"
+               cols="55"
+               placeholder="Add a comment"></textarea>
+            <button class="replyBtn">REPLY</button>
+         </section>`;
+      }
+      commentArticle.querySelector("textarea").value = "@" + username + " ,";
+      const replyBtn = commentArticle.querySelector(".replyBtn");
+      replyBtn.onclick = () => {
+         let theReply = commentArticle.querySelector("textarea").value;
+         const modifiedReply = theReply
+            .split(",")
+            .splice(1, theReply.length)
+            .join("");
+         commentArticle.querySelector(".addComment").remove();
+         commentArticle.innerHTML += `<div class="container replied">
+                  <div class="voting">
+                     <button class="plus">
+                        <img src="images/icon-plus.svg" alt="" />
+                     </button>
+                     <p class="voteNo">0</p>
+                     <button class="minus">
+                        <img src="images/icon-minus.svg" alt="" />
+                     </button>
+                  </div>
+                  <div class="commentInfo">
+                     <section class="commentHeader">
+                        <div class="commentDetails">
+                           <figure>
+                              <img
+                                 src="images/avatars/image-juliusomo.png"
+                                 alt="" />
+                           </figure>
+                           <p class="userName">juliusomo <span class="youText"> you</span>  </p>
+                           <p class="time">${currentDate}</p>
+                        </div>
+                        <div class="modify">
+                           <button class="delete">
+                              <img src="images/icon-delete.svg" alt="" class="deleteImg"/>
+                              <span class="deleteText">Delete</span>
+                           </button>
+                           <button class="edit">
+                              <img src="images/icon-edit.svg" alt="" class="editImg"/>
+                              <span class="editText">Edit</span>
+                           </button>
+                        </div>
+                     </section>
+                     <p class="comment"><span class="repliedUser">@ ${username}</span> 
+                  ${modifiedReply}</p>
+                     <button class="update">UPDATE</button>
+                  </div>
+               </div>`;
+      };
    }
 });
-
 sendMsg.onclick = () => {
-   const monthNames = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-   ];
-   const date = new Date();
-   let currentDate = monthNames[date.getMonth()] + " " + date.getDate();
    commentHolder.innerHTML += `<div class="container">
                   <div class="voting">
                      <button class="plus">
