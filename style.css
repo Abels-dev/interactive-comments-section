@@ -53,6 +53,10 @@ button {
    padding: 20px;
    border-radius: 10px;
 }
+.commentInfo{
+   display: flex;
+   flex-direction: column;
+}
 .commentHeader {
    display: flex;
    justify-content: space-between;
@@ -204,4 +208,16 @@ textarea:focus {
 }
 .no {
    background-color: var(--GrayishBlue);
+}
+.update{
+   background-color: var(--Moderateblue);
+   border: 0;
+   color: var(--White);
+   border-radius: 5px;
+   padding: 0.7rem;
+   font-weight: 500;
+   width: 100px;
+   align-self: flex-end;
+   margin-top: 10px;
+   display: none;
 }

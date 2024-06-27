@@ -8,6 +8,8 @@ const deleteBtn = document.querySelector(".delete");
 const deleteConfirmBox = document.getElementById("deleteBox");
 const confirmDelete = document.getElementById("yes");
 const cancelDelete = document.getElementById("no");
+const editMsg = document.querySelector(".edit");
+const updateComment = document.querySelector(".update");
 const fetchingJson = async () => {
    try {
       const response = await fetch("data.json");
@@ -61,5 +63,31 @@ deleteBtn.addEventListener("click", (e) => {
    confirmDelete.onclick = () => {
       e.target.closest(".container").remove();
       deleteConfirmBox.style.display = "none";
+   };
+});
+editMsg.addEventListener("click", (e) => {
+   editMsg.disabled = true;
+   deleteBtn.disabled = true;
+   editMsg.style.opacity = "0.5";
+   deleteBtn.style.opacity = "0.5";
+   const commentWrapper = e.target.closest(".commentInfo");
+   const text = commentWrapper.querySelector(".comment");
+   let comment = text.textContent;
+   text.innerHTML = `<textarea
+               name=""
+               rows="6"
+               cols="45"
+               class="editMsg" >${comment}</textarea>`;
+   updateComment.style.display = "block";
+
+   updateComment.onclick = () => {
+      const editedMsg = document.querySelector(".editMsg");
+      comment = editedMsg.value;
+      text.innerHTML = comment;
+      updateComment.style.display = "none";
+      editMsg.disabled = false;
+      deleteBtn.disabled = false;
+      editMsg.style.opacity = 1;
+      deleteBtn.style.opacity = 1;
    };
 });
