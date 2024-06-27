@@ -56,8 +56,10 @@ button {
 .commentInfo{
    display: flex;
    flex-direction: column;
+   width: 100%;
 }
 .commentHeader {
+   width: 100%;
    display: flex;
    justify-content: space-between;
    align-items: center;

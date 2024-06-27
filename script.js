@@ -9,7 +9,8 @@ const deleteConfirmBox = document.getElementById("deleteBox");
 const confirmDelete = document.getElementById("yes");
 const cancelDelete = document.getElementById("no");
 const editMsg = document.querySelector(".edit");
-const updateComment = document.querySelector(".update");
+const sendMsg = document.getElementById("send");
+const newComment = document.getElementById("commentField");
 const fetchingJson = async () => {
    try {
       const response = await fetch("data.json");
@@ -19,7 +20,12 @@ const fetchingJson = async () => {
       console.error("Error fetching the JSON:", error);
    }
 };
-
+const disableButton = (editBtn, deleteBtn, condition, strength) => {
+   editBtn.disabled = condition;
+   deleteBtn.disabled = condition;
+   editBtn.style.opacity = strength;
+   deleteBtn.style.opacity = strength;
+};
 const handlingData = async () => {
    try {
       const givenData = await fetchingJson();
@@ -57,37 +63,114 @@ const handlingData = async () => {
    }
 };
 handlingData();
-deleteBtn.addEventListener("click", (e) => {
-   deleteConfirmBox.style.display = "block";
-   cancelDelete.onclick = () => (deleteConfirmBox.style.display = "none");
-   confirmDelete.onclick = () => {
-      e.target.closest(".container").remove();
-      deleteConfirmBox.style.display = "none";
-   };
+commentHolder.addEventListener("click", (e) => {
+   if (
+      e.target.classList.contains("delete") ||
+      e.target.classList.contains("deleteImg") ||
+      e.target.classList.contains("deleteText")
+   ) {
+      const commentWrapper = e.target.closest(".commentInfo");
+      const deleteBn = commentWrapper.querySelector(".delete");
+      const editBn = commentWrapper.querySelector(".edit");
+      disableButton(editBn, deleteBn, true, "0.5");
+      deleteConfirmBox.style.display = "block";
+      cancelDelete.onclick = () => {
+         deleteConfirmBox.style.display = "none";
+         disableButton(editBn, deleteBn, false, "1");
+      };
+      confirmDelete.onclick = () => {
+         e.target.closest(".container").remove();
+         deleteConfirmBox.style.display = "none";
+         disableButton(editBn, deleteBn, false, "1");
+      };
+   }
 });
-editMsg.addEventListener("click", (e) => {
-   editMsg.disabled = true;
-   deleteBtn.disabled = true;
-   editMsg.style.opacity = "0.5";
-   deleteBtn.style.opacity = "0.5";
-   const commentWrapper = e.target.closest(".commentInfo");
-   const text = commentWrapper.querySelector(".comment");
-   let comment = text.textContent;
-   text.innerHTML = `<textarea
+commentHolder.addEventListener("click", (e) => {
+   if (
+      e.target.classList.contains("edit") ||
+      e.target.classList.contains("editImg") ||
+      e.target.classList.contains("editText")
+   ) {
+      const commentWrapper = e.target.closest(".commentInfo");
+      const text = commentWrapper.querySelector(".comment");
+      const deleteBn = commentWrapper.querySelector(".delete");
+      const editBn = commentWrapper.querySelector(".edit");
+      disableButton(editBn, deleteBn, true, "0.5");
+      let comment = text.textContent;
+      text.innerHTML = `<textarea
                name=""
                rows="6"
                cols="45"
                class="editMsg" >${comment}</textarea>`;
-   updateComment.style.display = "block";
-
-   updateComment.onclick = () => {
-      const editedMsg = document.querySelector(".editMsg");
-      comment = editedMsg.value;
-      text.innerHTML = comment;
-      updateComment.style.display = "none";
-      editMsg.disabled = false;
-      deleteBtn.disabled = false;
-      editMsg.style.opacity = 1;
-      deleteBtn.style.opacity = 1;
-   };
+      const updateComment = commentWrapper.querySelector(".update");
+      updateComment.style.display = "block";
+      updateComment.onclick = () => {
+         disableButton(editBn, deleteBn, false, "1");
+         const editedMsg = document.querySelector(".editMsg");
+         comment = editedMsg.value;
+         text.innerHTML = comment;
+         updateComment.style.display = "none";
+         editMsg.disabled = false;
+         deleteBtn.disabled = false;
+         editMsg.style.opacity = 1;
+         deleteBtn.style.opacity = 1;
+      };
+   }
 });
+
+sendMsg.onclick = () => {
+   const monthNames = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+   ];
+   const date = new Date();
+   let currentDate = monthNames[date.getMonth()] + " " + date.getDate();
+   commentHolder.innerHTML += `<div class="container">
+                  <div class="voting">
+                     <button class="plus">
+                        <img src="images/icon-plus.svg" alt="" />
+                     </button>
+                     <p class="voteNo">0</p>
+                     <button class="minus">
+                        <img src="images/icon-minus.svg" alt="" />
+                     </button>
+                  </div>
+                  <div class="commentInfo">
+                     <section class="commentHeader">
+                        <div class="commentDetails">
+                           <figure>
+                              <img
+                                 src="images/avatars/image-juliusomo.png"
+                                 alt="" />
+                           </figure>
+                           <p class="userName">juliusomo <span class="youText"> you</span>  </p>
+                           <p class="time">${currentDate}</p>
+                        </div>
+                        <div class="modify">
+                           <button class="delete">
+                              <img src="images/icon-delete.svg" alt="" class="deleteImg"/>
+                              <span class="deleteText">Delete</span>
+                           </button>
+                           <button class="edit">
+                              <img src="images/icon-edit.svg" alt="" class="editImg"/>
+                              <span class="editText">Edit</span>
+                           </button>
+                        </div>
+                     </section>
+                     <p class="comment">${newComment.value}</p>
+                     <button class="update">UPDATE</button>
+                  </div>
+               </div>
+   `;
+   newComment.value = "";
+};
