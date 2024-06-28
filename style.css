@@ -45,7 +45,8 @@ button {
    margin-top: 30px;
 }
 .container,
-.addComment {
+.addComment,
+.replied {
    width: 700px;
    background-color: var(--White);
    display: flex;
@@ -53,7 +54,7 @@ button {
    padding: 20px;
    border-radius: 10px;
 }
-.commentInfo{
+.commentInfo {
    display: flex;
    flex-direction: column;
    width: 100%;
@@ -119,7 +120,10 @@ article {
    font-weight: 700;
    align-items: center;
 }
-.youText{
+:is(.reply, .edit, .delete, .send, .replyBtn, .update):hover {
+   opacity: 0.5;
+}
+.youText {
    background-color: var(--Moderateblue);
    color: var(--White);
    display: inline-block;
@@ -129,7 +133,6 @@ article {
    width: 30px;
    font-weight: 500;
    height: 17px;
-  
 }
 .modify {
    display: flex;
@@ -158,7 +161,8 @@ textarea {
 textarea:focus {
    border: 2px solid var(--GrayishBlue);
 }
-.send ,.replyBtn{
+.send,
+.replyBtn {
    background-color: var(--Moderateblue);
    border: 0;
    padding: 0.7rem;
@@ -211,7 +215,7 @@ textarea:focus {
 .no {
    background-color: var(--GrayishBlue);
 }
-.update{
+.update {
    background-color: var(--Moderateblue);
    border: 0;
    color: var(--White);

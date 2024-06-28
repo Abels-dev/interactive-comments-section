@@ -11,7 +11,6 @@ const cancelDelete = document.getElementById("no");
 const editMsg = document.querySelector(".edit");
 const sendMsg = document.getElementById("send");
 const newComment = document.getElementById("commentField");
-
 const date = new Date();
 const monthNames = [
    "January",
@@ -37,12 +36,14 @@ const fetchingJson = async () => {
       console.error("Error fetching the JSON:", error);
    }
 };
+
 const disableButton = (editBtn, deleteBtn, condition, strength) => {
    editBtn.disabled = condition;
    deleteBtn.disabled = condition;
    editBtn.style.opacity = strength;
    deleteBtn.style.opacity = strength;
 };
+
 const handlingData = async () => {
    try {
       const givenData = await fetchingJson();
@@ -80,6 +81,47 @@ const handlingData = async () => {
    }
 };
 handlingData();
+
+const getPost = (element, className1,className2, messageBody, userNameField) => {
+   element.innerHTML += `<div class="${className1} ${className2}" >
+                  <div class="voting">
+                     <button class="plus">
+                        <img src="images/icon-plus.svg" alt="" />
+                     </button>
+                     <p class="voteNo">0</p>
+                     <button class="minus">
+                        <img src="images/icon-minus.svg" alt="" />
+                     </button>
+                  </div>
+                  <div class="commentInfo">
+                     <section class="commentHeader">
+                        <div class="commentDetails">
+                           <figure>
+                              <img
+                                 src="images/avatars/image-juliusomo.png"
+                                 alt="" />
+                           </figure>
+                           <p class="userName">juliusomo <span class="youText"> you</span>  </p>
+                           <p class="time">${currentDate}</p>
+                        </div>
+                        <div class="modify">
+                           <button class="delete">
+                              <img src="images/icon-delete.svg" alt="" class="deleteImg"/>
+                              <span class="deleteText">Delete</span>
+                           </button>
+                           <button class="edit">
+                              <img src="images/icon-edit.svg" alt="" class="editImg"/>
+                              <span class="editText">Edit</span>
+                           </button>
+                        </div>
+                     </section>
+                     <p class="comment">${userNameField} 
+                  ${messageBody}</p>
+                     <button class="update">UPDATE</button>
+                  </div>
+               </div>`;
+};
+
 commentHolder.addEventListener("click", (e) => {
    if (
       e.target.classList.contains("delete") ||
@@ -109,7 +151,7 @@ commentHolder.addEventListener("click", (e) => {
       const text = commentWrapper.querySelector(".comment");
       const deleteBn = commentWrapper.querySelector(".delete");
       const editBn = commentWrapper.querySelector(".edit");
-      disableButton(editBn, deleteBn, true, "0.5");
+      disableButton(editBn, deleteBn, true, "0.5"); // disables the edit and delete buttons while editing the comment
       let comment = text.textContent;
       text.innerHTML = `<textarea
                name=""
@@ -122,12 +164,12 @@ commentHolder.addEventListener("click", (e) => {
          disableButton(editBn, deleteBn, false, "1");
          const editedMsg = document.querySelector(".editMsg");
          comment = editedMsg.value;
-         text.innerHTML = comment;
+         let modifiedComment = comment.split(" ");
+         const username = modifiedComment[0];
+         modifiedComment = modifiedComment.splice(1, comment.length).join(" ");
+         text.innerHTML =
+            `<span class="repliedUser">${username}</span> ` + modifiedComment;
          updateComment.style.display = "none";
-         editMsg.disabled = false;
-         deleteBtn.disabled = false;
-         editMsg.style.opacity = 1;
-         deleteBtn.style.opacity = 1;
       };
    } else if (
       e.target.classList.contains("reply") ||
@@ -171,84 +213,13 @@ commentHolder.addEventListener("click", (e) => {
             .split(",")
             .splice(1, theReply.length)
             .join("");
+         const userNameField = `<span class='repliedUser'>@${username}</span> `;
          commentArticle.querySelector(".addComment").remove();
-         commentArticle.innerHTML += `<div class="container replied">
-                  <div class="voting">
-                     <button class="plus">
-                        <img src="images/icon-plus.svg" alt="" />
-                     </button>
-                     <p class="voteNo">0</p>
-                     <button class="minus">
-                        <img src="images/icon-minus.svg" alt="" />
-                     </button>
-                  </div>
-                  <div class="commentInfo">
-                     <section class="commentHeader">
-                        <div class="commentDetails">
-                           <figure>
-                              <img
-                                 src="images/avatars/image-juliusomo.png"
-                                 alt="" />
-                           </figure>
-                           <p class="userName">juliusomo <span class="youText"> you</span>  </p>
-                           <p class="time">${currentDate}</p>
-                        </div>
-                        <div class="modify">
-                           <button class="delete">
-                              <img src="images/icon-delete.svg" alt="" class="deleteImg"/>
-                              <span class="deleteText">Delete</span>
-                           </button>
-                           <button class="edit">
-                              <img src="images/icon-edit.svg" alt="" class="editImg"/>
-                              <span class="editText">Edit</span>
-                           </button>
-                        </div>
-                     </section>
-                     <p class="comment"><span class="repliedUser">@ ${username}</span> 
-                  ${modifiedReply}</p>
-                     <button class="update">UPDATE</button>
-                  </div>
-               </div>`;
+         getPost(commentArticle, "container","replied", modifiedReply, userNameField);
       };
    }
 });
 sendMsg.onclick = () => {
-   commentHolder.innerHTML += `<div class="container">
-                  <div class="voting">
-                     <button class="plus">
-                        <img src="images/icon-plus.svg" alt="" />
-                     </button>
-                     <p class="voteNo">0</p>
-                     <button class="minus">
-                        <img src="images/icon-minus.svg" alt="" />
-                     </button>
-                  </div>
-                  <div class="commentInfo">
-                     <section class="commentHeader">
-                        <div class="commentDetails">
-                           <figure>
-                              <img
-                                 src="images/avatars/image-juliusomo.png"
-                                 alt="" />
-                           </figure>
-                           <p class="userName">juliusomo <span class="youText"> you</span>  </p>
-                           <p class="time">${currentDate}</p>
-                        </div>
-                        <div class="modify">
-                           <button class="delete">
-                              <img src="images/icon-delete.svg" alt="" class="deleteImg"/>
-                              <span class="deleteText">Delete</span>
-                           </button>
-                           <button class="edit">
-                              <img src="images/icon-edit.svg" alt="" class="editImg"/>
-                              <span class="editText">Edit</span>
-                           </button>
-                        </div>
-                     </section>
-                     <p class="comment">${newComment.value}</p>
-                     <button class="update">UPDATE</button>
-                  </div>
-               </div>
-   `;
+   getPost(commentHolder, "container","", newComment.value, "");
    newComment.value = "";
 };
