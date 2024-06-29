@@ -1,4 +1,5 @@
 const commentHolder = document.getElementById("commentHolder");
+const main=document.getElementById("main")
 const voteNo = document.querySelectorAll(".voteNo");
 const userName = document.querySelectorAll(".userName");
 const postedTime = document.querySelectorAll(".time");
@@ -82,7 +83,7 @@ const handlingData = async () => {
 };
 handlingData();
 
-const getPost = (element, className1,className2, messageBody, userNameField) => {
+const getPost = ( element, className1,className2,messageBody, userNameField) => {
    element.innerHTML += `<div class="${className1} ${className2}" >
                   <div class="voting">
                      <button class="plus">
@@ -121,7 +122,8 @@ const getPost = (element, className1,className2, messageBody, userNameField) => 
                   </div>
                </div>`;
 };
-
+let isVotedDown=false;
+let isVotedUp=false;
 commentHolder.addEventListener("click", (e) => {
    if (
       e.target.classList.contains("delete") ||
@@ -132,15 +134,21 @@ commentHolder.addEventListener("click", (e) => {
       const deleteBn = commentWrapper.querySelector(".delete");
       const editBn = commentWrapper.querySelector(".edit");
       disableButton(editBn, deleteBn, true, "0.5");
+      main.style.opacity="0.5";
+      document.getElementsByTagName("body")[0].classList.add("overlay")
       deleteConfirmBox.style.display = "block";
       cancelDelete.onclick = () => {
          deleteConfirmBox.style.display = "none";
          disableButton(editBn, deleteBn, false, "1");
+         main.style.opacity="1";
+         document.getElementsByTagName("body")[0].classList.remove("overlay");
       };
       confirmDelete.onclick = () => {
          e.target.closest(".container").remove();
          deleteConfirmBox.style.display = "none";
          disableButton(editBn, deleteBn, false, "1");
+         main.style.opacity="1";
+         document.getElementsByTagName("body")[0].classList.remove("overlay");
       };
    } else if (
       e.target.classList.contains("edit") ||
@@ -215,11 +223,26 @@ commentHolder.addEventListener("click", (e) => {
             .join("");
          const userNameField = `<span class='repliedUser'>@${username}</span> `;
          commentArticle.querySelector(".addComment").remove();
-         getPost(commentArticle, "container","replied", modifiedReply, userNameField);
+         getPost(commentArticle, "container", "replied", modifiedReply,userNameField);
       };
+   } else if (
+      e.target.classList.contains("plus") ||
+      e.target.classList.contains("minus")
+   ) {
+      const voteHolder=e.target.closest(".voting").querySelector(".voteNo");
+      let vote = Number(voteHolder.textContent);
+      if(e.target.classList.contains("plus")&&!isVotedUp){
+         vote++;
+         isVotedUp=true;
+      }
+      else if(e.target.classList.contains("minus")&&!isVotedDown){
+         vote--;
+         isVotedDown=true;
+      }
+      voteHolder.textContent=vote;
    }
 });
 sendMsg.onclick = () => {
-   getPost(commentHolder, "container","", newComment.value, "");
+   getPost(commentHolder, "container", "", newComment.value, "");
    newComment.value = "";
 };
